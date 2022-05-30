@@ -48,7 +48,6 @@ void printTreeInorder(BST* bst) {
 	}
 }
 void destroyBST(BST* bst){
-	int berrier = bst->root->element;
 	if (bst->root == NULL)
 		return;
 	
@@ -65,6 +64,31 @@ void destroyBST(BST* bst){
 		}
 	}
 	free(bst->root);
+}
+
+int findIndexNFromLast(BST* bst, int N) {
+	
+	
+	if (bst->root->left!=NULL||bst->root->right!=NULL)//if its not the last / only node
+	{
+		//go over the right nodes
+		if (bst->root->right!=NULL)
+		{
+			return findIndexNFromLast(bst->root->right, N);
+		}
+	
+		
+	    //when the right elements recrucion stops,it move to the left nodes rerucsion,and return	N-1 (counter -1) and also return addition 1  
+		if (bst->root->left!=NULL && N>0)
+		{
+		 return findIndexNFromLast(bst->root->left, N-1)+1;
+
+		}
+	
+	}
+
+
+
 }
 
 
