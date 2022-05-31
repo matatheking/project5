@@ -22,6 +22,14 @@ void insertBST(BST* bst, int value);
 void printTreeInorder(BST* bst);
 void destroyBST(BST* bst);
 int findIndexNFromLast(BST* bst, int N);
+int sameHeightLeaves(BST* bst);
+void insertNode(TreeNode* node, int value);
+void inOrder(TreeNode* root);
+void destroyNodes(TreeNode* node);
+int countingAndReturnValue(TreeNode* node, int N);
+TreeNode* createNode(value);
+
+
 
 
 

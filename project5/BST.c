@@ -2,93 +2,142 @@
 #include "BST.h"
 void initBST(BST* bst) {
 	bst->root = NULL;
-
 }
 
 void insertBST(BST* bst, int value) {
 
-	if (bst->root==NULL)
+	if (bst->root == NULL)
 	{
-		bst->root->element = value;
+		bst->root = createNode(value);
 		return;
 	}
-
-	if (bst->root->element<= value)
-	{
-		if (bst->root->left == NULL)
-		{
-			bst->root->left->element = value;
-		}
-		else
-		{
-			insertBST(bst->root->left, value);
-		}
-	
+	else {
+		insertNode(bst->root, value);
 	}
 
-	if (bst->root->element> value)
+}
+
+TreeNode* createNode(int value) {
+	TreeNode* node = (TreeNode*)malloc(sizeof(TreeNode));
+	node->left = NULL;
+	node->right = NULL;
+	node->element = value;
+	return node;
+}
+
+
+void insertNode(TreeNode* node, int value) {
+
+	if (node->element > value)
 	{
-		if (bst->root->right==NULL)
+		if (node->left == NULL)
 		{
-			bst->root->right->element = value;
+			node->left = createNode(value);
+		}
+
+		else
+		{
+			/*node->left = createNode*/;
+			insertNode(node->left, value);
+		}
+	}
+	if (node->element <= value)
+	{
+		if (node->right == NULL)
+		{
+			node->right = createNode(value);
 		}
 		else
 		{
-			insertBST(bst->root->right, value);
+			//node->right = createNode();
+			insertNode(node->right, value);
 		}
 	}
 }
+
+
 void printTreeInorder(BST* bst) {
 
-	if (bst->root!=NULL)
+	if (bst->root != NULL)//
 	{
-		printTreeInorder(bst->root->left);
-		printf("%d  ", bst->root->element);
-		printTreeInorder(bst->root->right);
+		inOrder(bst->root);//calling the helping function
+	}
+	else {
+		printf("Empty tree");
 	}
 }
-void destroyBST(BST* bst){
+
+void inOrder(TreeNode* root) {
+	if (root==NULL)
+	return;
+	inOrder(root->left);
+	printf("%d, ", root->element);
+	inOrder(root->right);
+}
+
+void destroyBST(BST* bst) {
 	if (bst->root == NULL)
 		return;
-	
-	if (bst->root->left != NULL || bst->root->right!=NULL)
+	else
 	{
-		if (bst->root->left != NULL)
+		destroyNodes(bst->root);
+	}
+}
+
+void destroyNodes(TreeNode* node) {
+	if (node->left != NULL || node->right != NULL)
+	{
+		if (node->left != NULL)
 		{
-			destroyBST(bst->root->left);
+			destroyNodes(node->left);
 		}
 
-		if (bst->root->right != NULL)
+		if (node->right != NULL)
 		{
-			destroyBST(bst->root->right);
+			destroyNodes(node->right);
 		}
 	}
-	free(bst->root);
+	free(node);
 }
 
 int findIndexNFromLast(BST* bst, int N) {
-	
-	
-	if (bst->root->left!=NULL||bst->root->right!=NULL)//if its not the last / only node
+	int element_index = countingAndReturnValue(bst->root, N);
+	return element_index;
+}
+
+
+int countingAndReturnValue(TreeNode* node, int N)
+{
+
+	if (N == 0)
+	{
+		return node->element;
+	}
+	if (node->left != NULL || node->right != NULL)//if its not the last / only node
 	{
 		//go over the right nodes
-		if (bst->root->right!=NULL)
+		if (node->right != NULL)
 		{
-			return findIndexNFromLast(bst->root->right, N);
+			countingAndReturnValue(node->right, N);
 		}
-	
-		
-	    //when the right elements recrucion stops,it move to the left nodes rerucsion,and return	N-1 (counter -1) and also return addition 1  
-		if (bst->root->left!=NULL && N>0)
+		//when the right elements recrucion stops,it move to the left nodes rerucsion,and return	N-1 (counter -1)   
+		if (node->left != NULL && N > 0)
 		{
-		 return findIndexNFromLast(bst->root->left, N-1)+1;
-
+			countingAndReturnValue(node->left, N - 1);
 		}
-	
 	}
-
-
 
 }
 
+
+
+
+
+/*int sameHeightLeaves(BST * bst) {
+
+}
+
+
+}
+}*/
 
