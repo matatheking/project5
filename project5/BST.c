@@ -68,8 +68,8 @@ void printTreeInorder(BST* bst) {
 }
 
 void inOrder(TreeNode* root) {
-	if (root==NULL)
-	return;
+	if (root == NULL)
+		return;
 	inOrder(root->left);
 	printf("%d, ", root->element);
 	inOrder(root->right);
@@ -101,35 +101,60 @@ void destroyNodes(TreeNode* node) {
 }
 
 int findIndexNFromLast(BST* bst, int N) {
-	int element_index = countingAndReturnValue(bst->root, N);
-	return element_index;
+	int count = 0;
+	countingSteps(bst->root, &count);
+	int tree_num = 0;	
+	 StepsValue(bst->root,&tree_num);
+	 for (int i = count; i > N; i--)
+	 {
+		 tree_num = tree_num / 10;
+	 }
+	 tree_num = tree_num % 10;
+	 return tree_num;
+}
+void StepsValue(TreeNode* node,int* tree_num) {
+	if (node == NULL)
+	{
+		return;
+	}
+	StepsValue(node->right,tree_num);
+	 *tree_num = *tree_num * 10 +node->element;
+	 StepsValue(node->left,tree_num);
+
 }
 
 
-int countingAndReturnValue(TreeNode* node, int N)
+void countingSteps(TreeNode* node,int* count)
 {
-
-	if (N == 0)
+	if (node ==NULL)
 	{
-		return node->element;
+		return;
 	}
-	if (node->left != NULL || node->right != NULL)//if its not the last / only node
-	{
-		//go over the right nodes
-		if (node->right != NULL)
-		{
-			countingAndReturnValue(node->right, N);
-		}
-		//when the right elements recrucion stops,it move to the left nodes rerucsion,and return	N-1 (counter -1)   
-		if (node->left != NULL && N > 0)
-		{
-			countingAndReturnValue(node->left, N - 1);
-		}
-	}
-
+	countingSteps(node->right, count);
+	*count = *count + 1;
+	countingSteps(node->left, count);
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 

@@ -26,8 +26,12 @@ int sameHeightLeaves(BST* bst);
 void insertNode(TreeNode* node, int value);
 void inOrder(TreeNode* root);
 void destroyNodes(TreeNode* node);
-int countingAndReturnValue(TreeNode* node, int N);
+int countingAndReturnValue(TreeNode* node, int N,int* check,int berrier);
 TreeNode* createNode(value);
+void countingSteps(TreeNode* node, int* count);
+int returnByCount(TreeNode* node, int* count);
+void StepsValue(TreeNode* node,int* tree_num);
+
 
 
 

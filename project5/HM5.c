@@ -13,10 +13,15 @@ main() {
 	insertBST(bst, 4);
 	insertBST(bst, 1);
 	insertBST(bst, 9);
-	//print_ascii_tree(bst->root);
+	print_ascii_tree(bst->root);
 
 	printf("\n");
 	printTreeInorder(bst);
+	int N = 3;
+	int index_value = findIndexNFromLast(bst, N);
+	printf("\n");
+	printf("the third biggest element is %d ", index_value);
+
 
 
 
