@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include "BST.h"
 #include <string.h> 
-//#define Is_NULL(s);\
-//while (!s)\
-//{
-//puts("allocation failed");
-//	exit(1);
-//}
-//Is_NULL;
+#define Is_NULL(s);\
+do{\
+if (node == NULL) {\
+printf("allocation failed");\
+exit(1);\
+}\
+} while (0)
+Is_NULL;
 
 
 
@@ -28,7 +29,7 @@ void insertBST(BST* bst, int value) {
 }
 TreeNode* createNode(int value) {
 	TreeNode* node = (TreeNode*)malloc(sizeof(TreeNode));
-	//Is_allocation(node);
+	Is_NULL(node);
 	node->left = NULL;
 	node->right = NULL;
 	node->element = value;
